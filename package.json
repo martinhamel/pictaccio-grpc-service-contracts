@@ -1,0 +1,26 @@
+{
+    "name": "@pictaccio/grpc-service-contracts",
+    "version": "0.0.1",
+    "type": "commonjs",
+    "description": "Pictaccio gRPC service contracts",
+    "main": "index.js",
+    "scripts": {
+        "generate": "mkdir -p dist/lib/grpc-service-contracts/src && npm run generate-ts && npm run generate-js",
+        "generate:prod": "mkdir -p /app/lib/grpc-service-contracts/src && npm run generate-ts:prod && npm run generate-js:prod",
+        "generate-js": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:dist/lib/grpc-service-contracts/src --grpc_out=grpc_js:dist/lib/grpc-service-contracts/src --plugin=protoc-gen-grpc=$(which grpc_tools_node_protoc_plugin) -I ./src ./src/**/*.proto",
+        "generate-js:prod": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:/app/lib/grpc-service-contracts/src --grpc_out=grpc_js:/app/lib/grpc-service-contracts/src --plugin=protoc-gen-grpc=$(which grpc_tools_node_protoc_plugin) -I ./src ./src/**/*.proto",
+        "generate-ts": "protoc --plugin=protoc-gen-ts=$(npx which protoc-gen-ts) --ts_out=grpc_js:dist/lib/grpc-service-contracts/src -I ./src ./src/**/*.proto",
+        "generate-ts:prod": "protoc --plugin=protoc-gen-ts=$(npx which protoc-gen-ts) --ts_out=grpc_js:/app/lib/grpc-service-contracts/src -I ./src ./src/**/*.proto"
+    },
+    "author": "Roxanne Courchesne <rcourchesne@loufa.io>",
+    "license": "See LICENSE file",
+    "devDependencies": {
+        "grpc_tools_node_protoc_ts": "^5.3.3",
+        "grpc-tools": "^1.13.0",
+        "protoc-gen-ts": "^0.8.7",
+        "ts-protoc-gen": "^0.15.0"
+    },
+    "dependencies": {
+        "ts-proto": "^2.7.7"
+    }
+}

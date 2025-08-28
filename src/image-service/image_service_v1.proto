@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package image;
+
+enum SizeProfile {
+  SMALL = 0;
+  NORMAL = 1;
+}
+
+message ImageResizeItem {
+  string file = 1;
+  SizeProfile profile = 2;
+}
+
+message ResizeRequest {
+  repeated ImageResizeItem items = 1;
+}
+
+message WatermarkedResizeRequest {
+  repeated ImageResizeItem items = 1;
+  string watermarkImagePath = 2;
+}
+
+message ResizeResponse {
+  bool success = 1;
+}
+
+service Image {
+  rpc createThumbnails (ResizeRequest) returns (ResizeResponse);
+  rpc createWatermarkedThumbnails (WatermarkedResizeRequest) returns (ResizeResponse);
+}

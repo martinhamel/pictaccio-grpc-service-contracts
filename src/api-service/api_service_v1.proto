@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message CartItem {
+  repeated string byopSelection = 1;
+  string comment = 2;
+  repeated string photos = 3;
+  int64 productId = 4;
+  int64 quantity = 5;
+  string productName = 6;
+  ProductPhoto productPhoto = 7;
+  double subtotal = 8;
+  double productPrice = 9;
+  string theme = 10;
+}
+
+message ProductPhoto {
+  string theme = 1;
+  string url = 2;
+}
+
+message ContactInfo {
+  string apartment = 1;
+  string city = 2;
+  string civic_number = 3;
+  string name = 4;
+  string email = 5;
+  string phone = 6;
+  string postal_code = 7;
+  string state = 8;
+  string street = 9;
+}
+
+message PhotoSelection {
+  string backgroundNumber = 1;
+  string backgroundUrl = 2;
+  int64 pictureId = 3;
+  string photoId = 4;
+  string photoUrl = 5;
+}
+
+message PictureVersion {
+  string original = 1;
+  string version = 2;
+  google.protobuf.Timestamp createdAt = 3;
+}
+
+message PictureVersions {
+  map<string, PictureVersion> versions = 1;
+}
+
+message PictureVersionCollection {
+  map<int64, PictureVersions> collection = 1;
+}
+
+message Shipping {
+  int64 id = 1;
+  LocalizedString name = 2;
+  string comment = 3;
+}
+
+message LocalizedString {
+  map<string, string> values = 1;
+}
+
+message CanadianTaxLocality {
+  double gst = 1;
+  double hst = 2;
+  double pst = 3;
+  double qst = 4;
+}
+
+message TransactionInfo {
+  string code = 1;
+  bool success = 2;
+  string type = 3;
+}
+
+message Transaction {
+  double subtotal = 1;
+  double promo = 2;
+  double shipping = 3;
+  CanadianTaxLocality taxes = 4;
+  double total = 5;
+  repeated TransactionInfo transactions = 6;
+}
+
+message Subject {
+  string code = 1;
+  repeated string pictures = 2;
+  string uniqueId = 3;
+  string name = 4;
+  string group = 5;
+}
+
+message OrderDescriptor {
+  int64 sessionId = 1;
+  repeated CartItem cartItems = 2;
+  string comment = 3;
+  ContactInfo contact = 4;
+  int64 id = 5;
+  repeated PhotoSelection photos = 6;
+  PictureVersionCollection photoVersions = 7;
+  Shipping shipping = 8;
+  repeated Subject subjects = 9;
+  Transaction transaction = 10;
+  google.protobuf.Timestamp date = 11;
+}
+
+message OrderDescriptors {
+  repeated OrderDescriptor orders = 1;
+}
+
+message OrderRequest {
+  repeated int64 orderIds = 1;
+}
+
+message OrderResponse {
+  bool success = 1;
+  OrderDescriptors orders = 2;
+}
+
+service Api {
+  rpc getOrders(OrderRequest) returns (OrderResponse);
+}
