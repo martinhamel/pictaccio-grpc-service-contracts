@@ -25,9 +25,14 @@
     },
     "exports": {
         "./image_service_v1_grpc_pb": {
-            "types": "./dist/lib/grpc-service-contracts/src/image_service_v1_grpc_pb.d.ts",
-            "import": "./dist/lib/grpc-service-contracts/src/image_service_v1_grpc_pb.js",
-            "require": "./dist/lib/grpc-service-contracts/src/image_service_v1_grpc_pb.js"
+            "types": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_grpc_pb.d.ts",
+            "import": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_grpc_pb.js",
+            "require": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_grpc_pb.js"
+        },
+        "./image_service_v1_pb": {
+            "types": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_pb.d.ts",
+            "import": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_pb.js",
+            "require": "./dist/lib/grpc-service-contracts/src/image-service/image_service_v1_pb.js"
         }
     }
 }
